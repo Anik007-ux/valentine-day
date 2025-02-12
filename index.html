@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise for Bubu ❤️</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #ffdde1;
+            background-image: url('https://www.transparenttextures.com/patterns/hearts.png');
+            color: #d63384;
+            overflow: hidden;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .heart-button {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .heart-button:hover {
+            background-color: #e63950;
+        }
+        #no-btn {
+            position: absolute;
+        }
+        .hidden {
+            display: none;
+        }
+        @keyframes fall {
+            from { transform: translateY(-100px); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="your-romantic-song.mp3" type="audio/mp3">
+    </audio>
+    <div class="container" id="quiz-section">
+        <h2>When did I propose to you, Bubu? ❤️</h2>
+        <input type="text" id="quiz-answer" placeholder="DD/MM/YYYY">
+        <button onclick="checkAnswer()" class="heart-button">Submit</button>
+        <p id="quiz-result"></p>
+    </div>
+    <div class="container hidden" id="valentine-section">
+        <h1>Will You Be My Valentine, Bubu? 💖</h1>
+        <button class="heart-button" onclick="showLove()">Yes</button>
+        <button class="heart-button" id="no-btn" onclick="moveNoButton()">No</button>
+        <p id="message" class="hidden">Hehe, you have no choice but to be mine forever! 😘❤️</p>
+    </div>
+    <script>
+        function checkAnswer() {
+            let answer = document.getElementById('quiz-answer').value;
+            let result = document.getElementById('quiz-result');
+            if (answer === "02/09/2023") {
+                result.innerHTML = "😊 You remember! I love you even more, Bubu! ❤️";
+                document.getElementById('quiz-section').classList.add('hidden');
+                document.getElementById('valentine-section').classList.remove('hidden');
+            } else {
+                result.innerHTML = "😢 You did not love me more! Try again!";
+            }
+        }
+        function showLove() {
+            document.getElementById('message').classList.remove('hidden');
+            let hearts = "❤️".repeat(10);
+            alert(hearts + " I Love You, Bubu! Tum meri zindagi ka sabse best hissa ho! ❤️🔥" + hearts);
+        }
+        function moveNoButton() {
+            let noBtn = document.getElementById('no-btn');
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
+        function createFallingHearts() {
+            for (let i = 0; i < 15; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.style.position = "absolute";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animation = "fall 4s linear infinite";
+                heart.style.fontSize = "24px";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }
+        }
+        setInterval(createFallingHearts, 500);
+    </script>
+</body>
+</html>
+
