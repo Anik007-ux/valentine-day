@@ -9,91 +9,70 @@
             text-align: center;
             font-family: Arial, sans-serif;
             background-color: #ffdde1;
-            background-image: url('https://www.transparenttextures.com/patterns/hearts.png');
-            color: #d63384;
             overflow: hidden;
         }
         .container {
             margin-top: 50px;
         }
-        .heart-button {
+        #questionBox, #valentineBox {
+            display: none;
+        }
+        .button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+        }
+        #yesBtn {
             background-color: #ff4d6d;
             color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 24px;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
-        .heart-button:hover {
-            background-color: #e63950;
-        }
-        #no-btn {
+        #noBtn {
+            background-color: #666;
+            color: white;
             position: absolute;
         }
-        .hidden {
+        #message {
+            font-size: 24px;
+            color: #ff4d6d;
+            font-weight: bold;
             display: none;
         }
         @keyframes fall {
-            from { transform: translateY(-100px); opacity: 1; }
-            to { transform: translateY(100vh); opacity: 0; }
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: red;
+            animation: fall 3s linear infinite;
         }
     </style>
 </head>
 <body>
-    <audio autoplay loop>
-        <source src="your-romantic-song.mp3" type="audio/mp3">
+    <audio id="bgMusic" loop>
+        <source src="your-music.mp3" type="audio/mpeg">
     </audio>
-    <div class="container" id="quiz-section">
+
+    <div class="container">
         <h2>When did I propose to you, Bubu? ❤️</h2>
-        <input type="text" id="quiz-answer" placeholder="DD/MM/YYYY">
-        <button onclick="checkAnswer()" class="heart-button">Submit</button>
-        <p id="quiz-result"></p>
+        <input type="text" id="answer" placeholder="DD/MM/YYYY">
+        <button class="button" onclick="checkAnswer()">Submit</button>
+        <p id="quizMessage"></p>
     </div>
-    <div class="container hidden" id="valentine-section">
-        <h1>Will You Be My Valentine, Bubu? 💖</h1>
-        <button class="heart-button" onclick="showLove()">Yes</button>
-        <button class="heart-button" id="no-btn" onclick="moveNoButton()">No</button>
-        <p id="message" class="hidden">Hehe, you have no choice but to be mine forever! 😘❤️</p>
+
+    <div id="questionBox">
+        <h1>Will You Be My Valentine, Bubu? ❤️</h1>
+        <button class="button" id="yesBtn" onclick="showLove()">Yes</button>
+        <button class="button" id="noBtn" onclick="moveButton()">No</button>
+        <p id="message"></p>
     </div>
+
     <script>
         function checkAnswer() {
-            let answer = document.getElementById('quiz-answer').value;
-            let result = document.getElementById('quiz-result');
-            if (answer === "02/09/2023") {
-                result.innerHTML = "😊 You remember! I love you even more, Bubu! ❤️";
-                document.getElementById('quiz-section').classList.add('hidden');
-                document.getElementById('valentine-section').classList.remove('hidden');
-            } else {
-                result.innerHTML = "😢 You did not love me more! Try again!";
-            }
-        }
-        function showLove() {
-            document.getElementById('message').classList.remove('hidden');
-            let hearts = "❤️".repeat(10);
-            alert(hearts + " I Love You, Bubu! Tum meri zindagi ka sabse best hissa ho! ❤️🔥" + hearts);
-        }
-        function moveNoButton() {
-            let noBtn = document.getElementById('no-btn');
-            let x = Math.random() * (window.innerWidth - 100);
-            let y = Math.random() * (window.innerHeight - 50);
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
-        }
-        function createFallingHearts() {
-            for (let i = 0; i < 15; i++) {
-                let heart = document.createElement("div");
-                heart.innerHTML = "❤️";
-                heart.style.position = "absolute";
-                heart.style.left = Math.random() * 100 + "vw";
-                heart.style.animation = "fall 4s linear infinite";
-                heart.style.fontSize = "24px";
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 4000);
-            }
-        }
-        setInterval(createFallingHearts, 500);
-    </script>
-</body>
-</html>
+            let answer = document.getElementById("answer").value;
+            let quizMessage = document.getElementById("quizMessage");
+            if (answer === "
